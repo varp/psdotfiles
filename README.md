@@ -1,3 +1,3 @@
 ﻿# PowerShell dotfiles
 
-To install PS dotfiles open PowerShell and run: `.\config_profile.ps1`. For getting help run: `.\config_profile.ps1 help`.
+To install PS dotfiles open PowerShell as administrator and run: `.\install.ps1`. For getting help run: `.\install.ps1 help`.
