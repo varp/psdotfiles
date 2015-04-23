@@ -38,3 +38,6 @@ function global:prompt {
     $global:LASTEXITCODE = $realLASTEXITCODE
     return "> "
 }
+
+function subl { &"${Env:ProgramFiles}\Sublime Text 3\sublime_text.exe" $args }
+function subl { &"${Env:ProgramFiles}\Sublime Text 3\sublime_text.exe" $args }
