@@ -1,0 +1,52 @@
+﻿[user]
+  name = Vardan Pogosyan
+  email = vardan.pogosyan@gmail.com
+
+[github]
+  user = varp
+
+[apply]
+  whitespace = nowarn
+
+[core]
+  editor = vim
+  autocrlf = false
+  eol = lf
+
+[alias]
+  co        = checkout
+  ct        = checkout -t
+  ci        = commit -v
+  ca        = commit -av
+  st        = status -sb
+  sl        = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ss        = log --pretty=format:'%Cgreen%h%Creset %Cblue[%ci]%Creset - %C(yellow)%d%Creset | %s - %C(bold blue)<%an>%Creset' --abbrev-commit
+  up        = pull --rebase
+  track     = !git-track
+  prune-all = !git-prune-all
+  sync      = !git pull && git push
+  r         = remote -v
+  b         = branch -v
+  rh        = reset --hard
+
+[apply]
+  whitespace = nowarn
+
+[color]
+  ui     = true
+  branch = auto
+  diff   = auto
+  status = auto
+
+[push]
+  default = tracking
+
+[gc]
+  auto = 1
+
+[diff]
+  tool = meld
+  guitool = meld
+
+[difftool]
+  prompt = no
