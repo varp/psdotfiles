@@ -3,7 +3,7 @@ param([string]$Action = "install-all")
 Set-StrictMode -Version 3
 
 function Reload-Profile {
-    & $profile;
+    . $profile;
 }
 
 
@@ -46,9 +46,10 @@ function Install-PsGetPackages() {
 }
 
 # copy profile script
-function Install-NewProifle() {
+function Install-NewProfile() {
     Remove-Item -Path $profile -ErrorAction SilentlyContinue
     New-Symlink -Target .\Microsoft.PowerShell_profile.ps1 -Path $profile
+    New-Symlink -Target .\profile.ps1 -Path (Join-Path (Split-Path $profile) profile.ps1)
     Reload-Profile
 }
 
@@ -60,7 +61,7 @@ function Install-GitConfig() {
 
 # install system core packages
 function Install-CoreApps() {
-    choco install dotnet4.5 git poshgit sublimetext3.app sublimeText3.packagecontrol sublimeText3.powershellalias jivkok.sublimetext3.packages totalcommander 7zip powershell putty --force --yes
+    choco install dotnet4.5 git sublimetext3.app sublimeText3.packagecontrol sublimeText3.powershellalias jivkok.sublimetext3.packages totalcommander 7zip powershell putty --force --yes
 }
 
 # install additional packages
@@ -70,7 +71,7 @@ function Install-AdditionalApps() {
 
 
 function Install-All() {
-    Install-PsGet; Install-PsGetPacakages; Install-Choco; Install-CoreApps Install-NewProfile; Install-GitConfig
+    Install-PsGet; Install-PsGetPacakages; Install-Choco; Install-CoreApps; Install-NewProfile; Install-GitConfig
 }
 
 
@@ -85,7 +86,7 @@ Switch ($Action)
     reload-profile { Reload-Profile }
     install-psget { Install-PsGet; Install-PsGetPackages }
     install-choco { Install-Choco }
-    install-profile { Install-NewProifle }
+    install-profile { Install-NewProfile }
     install-core-apps { Install-CoreApps }
     install-additional-apps { Install-AdditionalApps }
     install-gitconfig { Install-GitConfig }
