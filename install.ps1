@@ -101,7 +101,6 @@ function Usage() {
 # main
 Switch ($Action)
 {
-    profile { Reload-Profile }
     psget { Install-PsGet; Install-PsGetPackages }
     choco { Install-Choco }
     profile { Install-NewProfile }
