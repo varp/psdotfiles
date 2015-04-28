@@ -66,7 +66,7 @@ function Install-CoreApps() {
 
 # install additional packages
 function Install-AdditionalApps() {
-    Get-Content .\packages.txt | %{ choco install $_ }
+    Get-Content .\additional-apps.txt | %{ choco install $_ }
 }
 
 
@@ -91,5 +91,5 @@ Switch ($Action)
     install-additional-apps { Install-AdditionalApps }
     install-gitconfig { Install-GitConfig }
     help { Usage }
-    default { Install-All }
+    default { Install-NewProfile }
 }
