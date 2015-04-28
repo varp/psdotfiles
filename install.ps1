@@ -61,7 +61,7 @@ function Install-GitConfig() {
 
 # install system core packages
 function Install-CoreApps() {
-    choco install dotnet4.5 git sublimetext3.app sublimeText3.packagecontrol sublimeText3.powershellalias jivkok.sublimetext3.packages totalcommander 7zip powershell putty --force --yes
+    choco install dotnet4.5 sublimetext3.app sublimeText3.packagecontrol sublimeText3.powershellalias jivkok.sublimetext3.packages totalcommander 7zip powershell putty --force --yes
 }
 
 # install additional packages
