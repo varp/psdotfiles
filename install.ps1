@@ -63,6 +63,7 @@ function Install-GitConfig() {
 # install system core packages
 function Install-CoreApps() {   
    @("dotnet4.5"
+     "sublimetext3"
      "sublimetext3.app"
      "sublimetext3.packagecontrol"
      "sublimetext3.powershellalias"
