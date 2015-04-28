@@ -48,20 +48,29 @@ function Install-PsGetPackages() {
 # copy profile script
 function Install-NewProfile() {
     Remove-Item -Path $profile -ErrorAction SilentlyContinue
+    Remove-Item -Path (Join-Path (Split-Path $profile) profile.ps1) -ErrorAction SilentlyContinue
     New-Symlink -Target .\Microsoft.PowerShell_profile.ps1 -Path $profile
     New-Symlink -Target .\profile.ps1 -Path (Join-Path (Split-Path $profile) profile.ps1)
     Reload-Profile
 }
 
 function Install-GitConfig() {
-    Remove-Item $env:USERPROFILE\.gitconfig
+    Remove-Item $env:USERPROFILE\.gitconfig -ErrorAction SilentlyContinue
     New-Symlink -Target .\gitconfig -Path $env:USERPROFILE\.gitconfig
     Reload-Profile
 }
 
 # install system core packages
-function Install-CoreApps() {
-    choco install dotnet4.5 sublimetext3.app sublimetext3.packagecontrol sublimetext3.powershellalias jivkok.sublimetext3.packages totalcommander 7zip powershell putty --force --yes
+function Install-CoreApps() {   
+   @("dotnet4.5"
+     "sublimetext3.app"
+     "sublimetext3.packagecontrol"
+     "sublimetext3.powershellalias"
+     "jivkok.sublimetext3.packages"
+     "totalcommander"
+     "7zip"
+     "powershell"
+     "putty") | %{ choco install $_ --force --yes }
 }
 
 # install additional packages
@@ -71,25 +80,37 @@ function Install-AdditionalApps() {
 
 
 function Install-All() {
-    Install-PsGet; Install-PsGetPacakages; Install-Choco; Install-CoreApps; Install-NewProfile; Install-GitConfig
+    Install-NewProfile; Install-GitConfig; Install-PsGet; Install-PsGetPacakages; Install-Choco; Install-CoreApps
+}
+
+function Install-Core {
+    Install-PsGetPackages; Install-PsGet; Install-PsGetPacakages; Install-Choco
+}
+
+function Install-Config {
+    Install-NewProfile; Install-GitConfig;
 }
 
 
 function Usage() {
     Write-Host "Usage: config_profile.ps1 [target]"
-    Write-Host "Targets: reload-profile install-pget install-choco install-profile install-core-apps install-additional-apps install-gitconfig"
+    Write-Host "Targets: profile pget choco profile core-apps additional-apps gitconfig core config"
 }
 
 # main
 Switch ($Action)
 {
-    reload-profile { Reload-Profile }
-    install-psget { Install-PsGet; Install-PsGetPackages }
-    install-choco { Install-Choco }
-    install-profile { Install-NewProfile }
-    install-core-apps { Install-CoreApps }
-    install-additional-apps { Install-AdditionalApps }
-    install-gitconfig { Install-GitConfig }
+    profile { Reload-Profile }
+    psget { Install-PsGet; Install-PsGetPackages }
+    choco { Install-Choco }
+    profile { Install-NewProfile }
+    core-apps { Install-CoreApps }
+    additional-apps { Install-AdditionalApps }
+    gitconfig { Install-GitConfig }
+    
+    core { Install-Core }
+    config { Install-Config }
+
     help { Usage }
     default { Install-NewProfile }
 }
